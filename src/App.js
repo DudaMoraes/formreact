@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
-import { FormularioCadastro } from './components/FormularioCadastro/FormularioCadastro';
+import { FormRegister } from './components/FormRegister/FormRegister';
 import {Container, Typography } from '@material-ui/core';
 import 'fontsource-roboto';
-import {validarCPF, validarSenha} from './models/Cadastro';
-import ValidacoesCadastro from './contexts/ValidacoesCadastro';
+import {validateDocument, validatePassword} from './models/Register';
+import RegisterValidations from './contexts/RegisterValidations';
 
 export class App extends Component {
   render() {
     return (
       <Container component="article" maxWidth="sm">
-        <Typography variant="h3" component="h1" align="center">Formulário de Cadastro</Typography>
-        <ValidacoesCadastro.Provider value={{cpf:validarCPF, senha:validarSenha}}>
-          <FormularioCadastro aoEnviar={aoEnviar} />
-        </ValidacoesCadastro.Provider>
+        <Typography variant="h3" component="h1" align="center">Formulário de Registro</Typography>
+        <RegisterValidations.Provider value={{document:validateDocument, password:validatePassword}}>
+          <FormRegister whenSending={whenSending} />
+        </RegisterValidations.Provider>
         
       </Container>
     );
   }
 }
 
-function aoEnviar(dados){
-  console.log(dados);
+function whenSending(data){
+  console.log(data);
 }
 
 export default App;

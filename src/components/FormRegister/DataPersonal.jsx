@@ -1,32 +1,32 @@
 import { React, useState, useContext } from 'react';
 import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core';
-import ValidacoesCadastro from '../../contexts/ValidacoesCadastro';
-import useErros from '../../hooks/useErros';
+import RegisterValidations from '../../contexts/RegisterValidations';
+import useErrors from '../../hooks/useErrors';
 
 
-export function DadosPessoais({ aoEnviar }) {
-    const [nome, setNome] = useState("");
-    const [sobrenome, setSobrenome] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [promocoes, setPromocoes] = useState(true);
-    const [novidades, setNovidades] = useState(true);
+export function DataPersonal({ whenSending }) {
+    const [name, setname] = useState("");
+    const [lastname, setlastname] = useState("");
+    const [document, setDocument] = useState("");
+    const [promotions, setPromotions] = useState(true);
+    const [news, setNews] = useState(true);
 
-    const validacoes = useContext(ValidacoesCadastro);
-    const [erros, validarCampos, possoEnviar] = useErros(validacoes);
+    const validations = useContext(RegisterValidations);
+    const [errors, validateFields, canSend] = useErrors(validations);
 
     return (
         <form onSubmit={(event) => {
             event.preventDefault();
-            if (possoEnviar()) {
-                aoEnviar({ nome, sobrenome, cpf, promocoes, novidades });
+            if (canSend()) {
+                whenSending({ name, lastname, document, promotions, news });
             }
         }}>
             <TextField
-                value={nome}
+                value={name}
                 onChange={event => {
-                    setNome(event.target.value);
+                    setname(event.target.value);
                 }}
-                id="nome"
+                id="name"
                 type="text"
                 label="Nome"
                 variant="outlined"
@@ -34,11 +34,11 @@ export function DadosPessoais({ aoEnviar }) {
             />
 
             <TextField
-                value={sobrenome}
+                value={lastname}
                 onChange={event => {
-                    setSobrenome(event.target.value);
+                    setlastname(event.target.value);
                 }}
-                id="sobrenome"
+                id="lastname"
                 type="text"
                 label="Sobrenome"
                 variant="outlined"
@@ -48,15 +48,15 @@ export function DadosPessoais({ aoEnviar }) {
             />
 
             <TextField
-                value={cpf}
+                value={document}
                 onChange={event => {
-                    setCpf(event.target.value);
+                    setDocument(event.target.value);
                 }}
-                onBlur={validarCampos}
-                name="cpf"
-                error={!erros.cpf.valido}
-                helperText={erros.cpf.texto}
-                id="cpf"
+                onBlur={validateFields}
+                name="document"
+                error={!errors.document.valid}
+                helperText={errors.document.text}
+                id="document"
                 label="CPF"
                 type="number"
                 variant="outlined"
@@ -68,28 +68,28 @@ export function DadosPessoais({ aoEnviar }) {
                 label="Promoções"
                 control={
                     <Switch
-                        checked={promocoes}
+                        checked={promotions}
                         onChange={
                             event => {
-                                setPromocoes(event.target.checked)
+                                setPromotions(event.target.checked)
                             }
                         }
-                        name="Promoções"
+                        name="promotions"
                         color="primary"
                     />}
             />
 
             <FormControlLabel
-                label="Novidades"
+                label="news"
                 control={
                     <Switch
-                        checked={novidades}
+                        checked={news}
                         onChange={
                             event => {
-                                setNovidades(event.target.checked)
+                                setNews(event.target.checked)
                             }
                         }
-                        name="Novidades"
+                        name="news"
                         color="primary" />}
             />
             <Button

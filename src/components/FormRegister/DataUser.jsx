@@ -1,20 +1,20 @@
 import { Button, TextField } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
-import ValidacoesCadastro from '../../contexts/ValidacoesCadastro';
-import useErros from '../../hooks/useErros';
+import RegisterValidations from '../../contexts/RegisterValidations';
+import useErrors from '../../hooks/useErrors';
 
-function DadosUsuario({ aoEnviar }) {
+function DataUser({ whenSending }) {
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-    const validacoes = useContext(ValidacoesCadastro);
-    const [erros, validarCampos, possoEnviar] = useErros(validacoes);
+    const [password, setPassword] = useState("");
+    const validations = useContext(RegisterValidations);
+    const [errors, validateFields, canSend] = useErrors(validations);
 
 
     return (
         <form onSubmit={(event) => {
             event.preventDefault();
-            if (possoEnviar()) {
-                aoEnviar({ email, senha });
+            if (canSend()) {
+                whenSending({ email, password });
             }
         }}>
             <TextField
@@ -28,13 +28,13 @@ function DadosUsuario({ aoEnviar }) {
                 fullWidth
                 margin="normal" />
             <TextField
-                value={senha}
-                onChange={(event) => { setSenha(event.target.value) }}
-                onBlur={validarCampos}
-                error={!erros.senha.valido}
-                helperText={erros.senha.texto}
-                id="senha"
-                name="senha"
+                value={password}
+                onChange={(event) => { setPassword(event.target.value) }}
+                onBlur={validateFields}
+                error={!errors.password.valid}
+                helperText={errors.password.text}
+                id="password"
+                name="password"
                 label="Senha"
                 type="password"
                 required
@@ -52,4 +52,4 @@ function DadosUsuario({ aoEnviar }) {
     );
 }
 
-export default DadosUsuario;
+export default DataUser;

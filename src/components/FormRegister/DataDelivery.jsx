@@ -1,35 +1,34 @@
 import { TextField, Button } from '@material-ui/core';
 import React, { useState } from 'react';
-//import ValidacoesCadastro from '../../contexts/ValidacoesCadastro';
-function DadosEntrega({ aoEnviar }) {
-    const [cep, setCep] = useState("");
-    const [endereco, setEndereco] = useState("");
-    const [numero, setNumero] = useState("");
-    const [estado, setEstado] = useState("");
-    const [cidade, setCidade] = useState("");
+function DataDelivery({ whenSending }) {
+    const [zipcode, setZipcode] = useState("");
+    const [address, setAddress] = useState("");
+    const [number, setNumber] = useState("");
+    const [state, setState] = useState("");
+    const [city, setCity] = useState("");
 
-    //const validacoes = useContext(ValidacoesCadastro);
+    
 
     return (
         <form onSubmit={
             (event) => {
                 event.preventDefault();
-                aoEnviar({ cep, endereco, numero, estado, cidade });
+                whenSending({  });
             }
         }>
             <TextField
-                value={cep}
-                onChange={(event) => { setCep(event.target.value) }}
-                id="cep"
+                value={zipcode}
+                onChange={(event) => { setZipcode(event.target.value) }}
+                id="zipcode"
                 label="CEP"
                 type="number"
                 variant="outlined"
                 margin="normal"
             />
             <TextField
-                value={endereco}
-                onChange={(event) => { setEndereco(event.target.value) }}
-                id="endereco"
+                value={address}
+                onChange={(event) => { setAddress(event.target.value) }}
+                id="address"
                 label="Endereço"
                 type="text"
                 variant="outlined"
@@ -37,27 +36,27 @@ function DadosEntrega({ aoEnviar }) {
                 margin="normal"
             />
             <TextField
-                value={numero}
-                onChange={(event) => { setNumero(event.target.value) }}
-                id="numero"
+                value={number}
+                onChange={(event) => { setNumber(event.target.value) }}
+                id="number"
                 label="Número"
                 type="number"
                 variant="outlined"
                 margin="normal"
             />
             <TextField
-                value={estado}
-                onChange={(event) => { setEstado(event.target.value) }}
-                id="estado"
+                value={state}
+                onChange={(event) => { setState(event.target.value) }}
+                id="state"
                 label="Estado"
                 type="text"
                 variant="outlined"
                 margin="normal"
             />
             <TextField
-                value={cidade}
-                onChange={(event) => { setCidade(event.target.value) }}
-                id="cidade"
+                value={city}
+                onChange={(event) => { setCity(event.target.value) }}
+                id="city"
                 label="Cidade"
                 type="text"
                 variant="outlined"
@@ -74,4 +73,4 @@ function DadosEntrega({ aoEnviar }) {
         </form>
     );
 }
-export default DadosEntrega;
+export default DataDelivery;
